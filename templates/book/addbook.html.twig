@@ -1,0 +1,38 @@
+{{form_start(formB)}}
+<table>
+<tr>
+    <td>{{form_label(formB.ref,'Réference')}}</td>
+    <td>{{form_widget(formB.ref)}}</td>
+</tr>
+
+<tr>
+    <td>{{form_label(formB.title)}}</td>
+    <td>{{form_widget(formB.title)}}</td>
+</tr>
+
+<tr>
+    <td>{{form_label(formB.category)}}</td>
+    <td>{{form_widget(formB.category)}}</td>
+</tr>
+
+<tr>
+    <td>{{form_label(formB.publicationdate,'Publication Date')}}</td>
+    <td>{{form_widget(formB.publicationdate)}}</td>
+</tr>
+
+<tr>
+    <td>{{form_label(formB.publisher,'Published')}}</td>
+    <td>{{form_widget(formB.publisher)}}</td>
+</tr>
+
+<tr>
+    <td>{{form_label(formB.author)}}</td>
+    <td>{{form_widget(formB.author)}}</td>
+</tr>
+
+<tr>
+    <td></td>
+    <td>{{form_widget(formB.save, { 'label': 'Ajouter Book' , 'attr': {'style': 'background-color: #0000FF; color: white;'}})}}</td>
+</tr>
+<table>
+{{form_end(formB)}}

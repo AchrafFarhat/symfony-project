@@ -1,0 +1,14 @@
+<table border="1">
+<tr>
+<td>ref</td> <td> Title </td> <td> Author </td> 
+<tr>
+{% for book in books %}
+<tr>
+<td>{{book.ref}}</td>
+<td>{{book.title}}</td>
+<td>{{book.author.username}}</td>
+{#<td><a href="/deleteAuthor/{{author.id}}" >Delete</a></td>#}
+</tr>
+{% endfor %}
+
+{# comment #}
