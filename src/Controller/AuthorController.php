@@ -82,7 +82,7 @@ class AuthorController extends AbstractController
             $repo = $doctrine->getRepository(Author::class);
             $author= $repo->find($id);
 
-            // Formulaire
+            
             $form=$this->createForm(AuthorType::class,  $author);
             $form->handleRequest($request);
             $form->add('Modifier', SubmitType::class);
