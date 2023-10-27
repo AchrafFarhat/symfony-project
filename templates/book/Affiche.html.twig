@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>List Books</h1>
-<a href="{{ path('app_AddBook')}}">Add</a>
+<a href="{{ path('AddBook')}}">Add</a>
 
 <table border="1">
     <tr>
@@ -25,15 +25,15 @@
 
 
     <tr>  {% for b in publishedBooks %} </tr>
-    <td>{{ b.title }}</td>
-    <td>{{ b.publicationDate | date('M-d-Y') }}</td>
-    <td> {{b.published }}</td>
+    <td>{{ b.Title }}</td>
+    <td>{{ b.publicationdate | date('M-d-Y') }}</td>
+    <td> {{b.publisher }}</td>
 
     <td> {{b.category }}</td>
     <td>{{ b.author.username }}</td>
     <td><a href="{{ path('app_editBook', {'ref': b.ref}) }}">edit</a>
         <a href="{{ path('app_deleteBook', {'ref': b.ref}) }}">delete</a>
-        <a href="{{ path('app_detailBook', {'ref': b.ref}) }}">detail</a>
+        <a href="{{ path('app_detailBook', {'ref': b.ref}) }}">show</a>
 
 
 

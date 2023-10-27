@@ -61,8 +61,8 @@ class AuthorController extends AbstractController
             $author = New Author ;
             // Formulaire
             $form=$this->createForm(AuthorType::class,  $author);
-            $form->handleRequest($request);
             $form->add('Ajouter', SubmitType::class);
+            $form->handleRequest($request);
             $em=$doctrine->getManager();
             if ($form->isSubmitted() && $form->isValid()) {
                 $em->persist($author);        

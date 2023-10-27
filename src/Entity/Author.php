@@ -22,7 +22,7 @@ class Author
     private ?string $email = null;
 
     #[ORM\Column]
-    private ?int $nb_books = null;
+    private ?int $nb_books = 0;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
     private Collection $books;

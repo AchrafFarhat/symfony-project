@@ -9,6 +9,7 @@ use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,7 @@ class BookController extends AbstractController
     {
         $books=$repo->findAll();
         return $this->render('book/index.html.twig', [
-            'books' => 'books',
+            'books' => $books,
         ]);
     }
 
@@ -91,12 +92,9 @@ class BookController extends AbstractController
     }
 
     #[Route('/deletebook/{ref}', name: 'app_deleteBook')]
-    public function delete($ref, BookRepository $repository, ManagerRegistry $doctrine)
+    public function delete($ref, BookRepository $repository, EntityManagerInterface $em)
     {
         $book = $repository->find($ref);
-
-
-        $em = $this->$doctrine()->getManager();
         $em->remove($book);
         $em->flush();
 
@@ -112,7 +110,9 @@ class BookController extends AbstractController
             return $this->redirectToRoute('app_AfficheBook');
         }
 
-        return $this->render('book/show.html.twig', ['b' => $book]);
+        return $this->render('book/show.html.twig', [
+            'b' => $book
+        ]);
 
 }
     
