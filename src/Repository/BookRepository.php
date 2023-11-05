@@ -31,7 +31,7 @@ class BookRepository extends ServiceEntityRepository
         ->getQuery()->getResult();
     }
 
-    public function ShowAllBooksByDate(int $year, int $minBooks)
+    public function findByDate(int $year, int $minBooks)
     {
         return $this->createQueryBuilder('b')
         ->join('b.author', 'a')
@@ -44,6 +44,17 @@ class BookRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+
+    public function findByCategory($category)
+{
+    return $this->createQueryBuilder('b')
+        ->join('b.author', 'a')
+        ->select('SUM(a.nb_books) as totalQuantity')
+        ->where('b.category = :category')
+        ->setParameter('category', $category)
+        ->getQuery()
+        ->getSingleScalarResult();
+}
 
 //    /**
 //     * @return Book[] Returns an array of Book objects

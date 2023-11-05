@@ -155,10 +155,22 @@ public function listBooksBeforeYearAndAuthorBooks(Request $request, BookReposito
     {
     $year = 2023; // Année de référence (2023)
     $minAuthorBooks = 35; // Nombre minimum de livres de l'auteur
-    $books = $repo->ShowAllBooksByDate($year, $minAuthorBooks);
+    $books = $repo->findByDate($year, $minAuthorBooks);
     }
     return $this->render('book/ListAndSearch.html.twig', [
         'books' => $books, 'form'=>$form->createView()
+    ]);
+}
+
+#[Route('/SumScienceFictionBooks', name: 'SumScienceFictionBooks')]
+public function sumScienceFictionBooks(BookRepository $repo): Response
+{
+    $category = 'Science Fiction';
+    $totalQuantity = $repo->findByCategory($category);
+
+    return $this->render('book/sum_science_fiction_books.html.twig', [
+        'category' => $category,
+        'totalQuantity' => $totalQuantity,
     ]);
 }
     
