@@ -21,6 +21,30 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+    public function ShowAllBooksByAuthor($id)
+    {
+        return $this->createQueryBuilder('a')
+        ->join('a.author','b')
+        ->addSelect('b')
+        ->where('b.id = :id')
+        ->setParameter('id',$id)
+        ->getQuery()->getResult();
+    }
+
+    public function ShowAllBooksByDate(int $year, int $minBooks)
+    {
+        return $this->createQueryBuilder('b')
+        ->join('b.author', 'a')
+        ->where('b.publicationdate < :year')
+        ->andWhere('a.nb_books > :minAuthorBooks')
+        ->setParameters([
+            'year' => $year,
+            'minAuthorBooks' => $minBooks,
+        ])
+        ->getQuery()
+        ->getResult();
+    }
+
 //    /**
 //     * @return Book[] Returns an array of Book objects
 //     */

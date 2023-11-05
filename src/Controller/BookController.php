@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Author;
 use App\Entity\Book;
 use App\Form\BookType;
+use App\Form\SearchRefType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -113,7 +114,52 @@ class BookController extends AbstractController
         return $this->render('book/show.html.twig', [
             'b' => $book
         ]);
+    }
 
+
+    #[Route('/ShowBookByAuthor/{id}', name: 'ShowBookByAuthor')]
+
+    public function ShowBookByAuthor($id, BookRepository $repository)
+    {
+        $book = $repository->ShowAllBooksByAuthor($id);
+        return $this->render('book/showbookbyauthor.html.twig', [
+            'books' => $book
+        ]);
+    }
+
+    #[Route('/SearchRef', name: 'SearchRef')]
+    public function SearchRef(Request $request, BookRepository $bookrep)
+    {
+        $books=$bookrep->findAll();
+        $form=$this->createForm(SearchRefType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $ref=$form->get('ref')->getData();
+            //$books=$bookrep->findBy(['ref'=>$ref]);
+            $books=$bookrep->findByRef($ref);
+        }
+        return $this->render('book/SearchAndList.html.twig',[
+            'books'=>$books,'form'=>$form->createView()
+        ]);
+    }
+
+
+    #[Route('/ListBooksBeforeYearAndAuthorBooks', name: 'ListBooksBeforeYearAndAuthorBooks')]
+public function listBooksBeforeYearAndAuthorBooks(Request $request, BookRepository $repo): Response
+{
+    $books=$repo->findAll();
+    $form=$this->createForm(SearchRefType::class);
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid())
+    {
+    $year = 2023; // Année de référence (2023)
+    $minAuthorBooks = 35; // Nombre minimum de livres de l'auteur
+    $books = $repo->ShowAllBooksByDate($year, $minAuthorBooks);
+    }
+    return $this->render('book/ListAndSearch.html.twig', [
+        'books' => $books, 'form'=>$form->createView()
+    ]);
 }
     
 }

@@ -30,7 +30,7 @@ class AuthorController extends AbstractController
     #[Route('/listAuthor', name: 'list_author')]
     public function listAuthor(AuthorRepository $authrepo): Response
     {
-        $authors = $authrepo->findAll();
+        $authors = $authrepo->findAll2();
         return $this->render('author/list.html.twig', [
             'authors' => $authors
         ]);

@@ -8,8 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-<h1>List Books</h1>
-<a href="{{ path('AddBook')}}">Add</a>
+<h1>List Books By Author</h1>
+
 
 <table border="1">
     <tr>
@@ -24,25 +24,25 @@
     </tr>
 
 
-    <tr>  {% for b in publishedBooks %} </tr>
+    <tr>  {% for b in books %} </tr>
     <td>{{ b.Title }}</td>
     <td>{{ b.publicationdate | date('M-d-Y') }}</td>
     <td> {{b.publisher }}</td>
 
     <td> {{b.category }}</td>
     <td>{{ b.author.username }}</td>
-    <td>
-        <a href="{{ path('app_editBook', {'ref': b.ref}) }}">edit</a>
+    <td><a href="{{ path('app_editBook', {'ref': b.ref}) }}">edit</a>
         <a href="{{ path('app_deleteBook', {'ref': b.ref}) }}">delete</a>
         <a href="{{ path('app_detailBook', {'ref': b.ref}) }}">show</a>
+
+
+
     </td>
 
 
     {% endfor %}
 
-    <p>Number of published books : {{ numPublishedBooks }}</p>
-    <p>Number of Unpublished books : {{ numUnPublishedBooks }}</p>
-
+ 
 </table>
 </body>
 </html>

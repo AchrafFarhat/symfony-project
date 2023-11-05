@@ -24,7 +24,8 @@ class BookType extends AbstractType
                 'choices' => [
                     'Science-Fiction'=>'Science-Fiction',
                     'Mystery'=>'Mystery',
-                    'Autobiography'=>'Autobiography'
+                    'Autobiography'=>'Autobiography',
+                    'Romance'=>'Romance'
                 ]
             ])
             ->add('publicationdate')
